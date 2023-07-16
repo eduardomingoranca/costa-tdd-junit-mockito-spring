@@ -29,7 +29,7 @@ class SimpleMathTest {
         Double actual = math.subtraction(firstNumber, secondNumber);
         double expected = 4.2D;
 
-        assertEquals(expected, actual, () -> firstNumber + " + " + secondNumber + " did not produce "+ expected +"!");
+        assertEquals(expected, actual, () -> firstNumber + " - " + secondNumber + " did not produce "+ expected +"!");
     }
 
     @Test
@@ -41,7 +41,7 @@ class SimpleMathTest {
         Double actual = math.multiplication(firstNumber, secondNumber);
         double expected = 12.4D;
 
-        assertEquals(expected, actual, () -> firstNumber + " + " + secondNumber + " did not produce "+ expected +"!");
+        assertEquals(expected, actual, () -> firstNumber + " * " + secondNumber + " did not produce "+ expected +"!");
     }
 
     @Test
@@ -53,7 +53,7 @@ class SimpleMathTest {
         Double actual = math.division(firstNumber, secondNumber);
         double expected = 3.1D;
 
-        assertEquals(expected, actual, () -> firstNumber + " + " + secondNumber + " did not produce "+ expected +"!");
+        assertEquals(expected, actual, () -> firstNumber + " / " + secondNumber + " did not produce "+ expected +"!");
     }
 
     @Test
@@ -65,7 +65,7 @@ class SimpleMathTest {
         Double actual = math.mean(firstNumber, secondNumber);
         double expected = 4.1D;
 
-        assertEquals(expected, actual, () -> firstNumber + " + " + secondNumber + " did not produce "+ expected +"!");
+        assertEquals(expected, actual, () -> "(" + firstNumber + " + " + secondNumber + ")/2" + " did not produce "+ expected +"!");
     }
 
     @Test
@@ -76,7 +76,7 @@ class SimpleMathTest {
         Double actual = math.squareRoot(number);
         double expected = 4D;
 
-        assertEquals(expected, actual, () -> number + " did not produce "+ expected +"!");
+        assertEquals(expected, actual, () -> "Square Root of " + number + " did not produce "+ expected +"!");
     }
 
 }
