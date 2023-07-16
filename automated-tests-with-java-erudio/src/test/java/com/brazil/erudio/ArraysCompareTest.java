@@ -1,8 +1,10 @@
 package com.brazil.erudio;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Timeout;
 
 import static java.util.Arrays.sort;
+import static java.util.concurrent.TimeUnit.MILLISECONDS;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
 class ArraysCompareTest {
@@ -15,5 +17,16 @@ class ArraysCompareTest {
         sort(numbers);
 
         assertArrayEquals(numbers, expectedArray);
+    }
+
+    @Test
+    //@Timeout(1)
+    @Timeout(value = 15, unit = MILLISECONDS)
+    void testSortPerformance() {
+        int[] numbers = {25, 8, 21, 32, 3};
+        for (int i = 0; i < 10000000; i++) {
+            numbers[0] = i;
+            sort(numbers);
+        }
     }
 }
