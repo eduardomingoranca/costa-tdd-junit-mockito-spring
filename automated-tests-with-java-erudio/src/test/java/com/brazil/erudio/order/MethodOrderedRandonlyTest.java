@@ -1,4 +1,4 @@
-package com.brazil.erudio;
+package com.brazil.erudio.order;
 
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
