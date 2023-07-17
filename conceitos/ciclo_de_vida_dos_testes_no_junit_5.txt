@@ -1,0 +1,6 @@
+Ciclo de Vida dos Testes no JUnit 5
+
+> Por padrao, o ciclo de vida da instancia de testes eh "por metodo";
+> A ordem de execucao eh deterministica, mas intencionalmente nao obvia.
+
+@TestInstance(Lifecycle.PER_CLASS) => cria uma unica instanci da classe de teste.
