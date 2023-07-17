@@ -1,0 +1,2 @@
+O que eh Test Driven Development (TDD)?
+Eh uma tecnica de desenvolvimento de software que se relaciona com o conceito de verificacao e validacao e se baseia em um ciclo curto de repeticoes: Primeiramente o desenvolvedor escreve um caso de teste automatizado que define uma melhoria desejada ou uma nova funcionalidade. Entao, eh produzido codigo que possa ser validado pelo teste para posteriormente o codigo ser refatorado para um codigo sob padroes aceitaveis.

@@ -4,7 +4,6 @@ import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.TestInstance.Lifecycle.PER_CLASS;
 
-//@Order(3)
 @TestInstance(PER_CLASS)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class MethodOrderedByOrderIndexTest {
