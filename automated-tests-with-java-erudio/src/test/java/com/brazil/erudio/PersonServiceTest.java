@@ -1,5 +1,7 @@
 package com.brazil.erudio;
 
+import com.brazil.erudio.service.IPersonService;
+import com.brazil.erudio.service.PersonService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -10,7 +12,7 @@ class PersonServiceTest {
     @Test
     void testCreatePerson_WhenSuccess_ShouldReturnPersonObject() {
         // Given / Arrange
-
+        IPersonService service = new PersonService();
         // When / Act
 
         // Then / Assert
