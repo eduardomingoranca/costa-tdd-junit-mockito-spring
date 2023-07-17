@@ -4,9 +4,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
-import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @DisplayName("Test Math Operations in SimpleMath Class")
 class SimpleMathTestS4 {
@@ -17,15 +18,15 @@ class SimpleMathTestS4 {
         math = new SimpleMath();
     }
 
+    @ParameterizedTest
+    @ValueSource(strings = {"Pele", "Senna", "Keith Moon"})
+    void testValueSource(String firstName) {
+        System.out.println(firstName);
+        assertNotNull(firstName);
+    }
+
     @DisplayName("Test double subtraction [firstNumber, secondNumber, expected]")
     @ParameterizedTest
-    /**
-    @CsvSource({
-            "6.2, 2, 3.1",
-            "71, 14, 5.07",
-            "18.3, 3.1, 5.90"
-    })
-    */
     @CsvFileSource(resources = "/testDivision.csv")
     void testDivision(double firstNumber, double secondNumber, double expected) {
 
