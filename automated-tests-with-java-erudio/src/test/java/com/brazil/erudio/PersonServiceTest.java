@@ -38,9 +38,9 @@ class PersonServiceTest {
         assertNotNull(actual, "The createPerson() should not have returned null!");
     }
 
-    @DisplayName("When Create a Person with Success Should Contains FirstName in Returned Person Object")
+    @DisplayName("When Create a Person with Success Should Contains Valid Fields in Returned Person Object")
     @Test
-    void testCreatePerson_WhenSuccess_ShouldContainsFirstNameInReturnedPersonObject() {
+    void testCreatePerson_WhenSuccess_ShouldContainsValidFieldsInReturnedPersonObject() {
         // Given / Arrange
         IPersonService service = new PersonService();
 
