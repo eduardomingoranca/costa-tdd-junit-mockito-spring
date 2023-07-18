@@ -49,6 +49,10 @@ class PersonServiceTest {
 
         // Then / Assert
         assertEquals(person.getFirstName(), actual.getFirstName(), "The FirstName is Different!");
+        assertEquals(person.getLastName(), actual.getLastName(), "The LastName is Different!");
+        assertEquals(person.getAddress(), actual.getAddress(), "The Address is Different!");
+        assertEquals(person.getGender(), actual.getGender(), "The Gender is Different!");
+        assertEquals(person.getEmail(), actual.getEmail(), "The Email is Different!");
     }
 
 }
