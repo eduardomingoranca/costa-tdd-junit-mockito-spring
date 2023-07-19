@@ -8,7 +8,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class CourseBusinessTest {
+class CourseBusinessStubTest {
 
     @Test
     void testCoursesRelatedToSpring_When_UsingAStub() {
