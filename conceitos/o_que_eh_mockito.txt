@@ -1,0 +1,12 @@
+O que eh mockito?
+O Mockito eh um framework de teste e spy e o seu principal objetivo eh simular a instancia de classes
+e o comportamento de metodos ao marcar uma dependencia com o Mockito. Durante o mock, pode-se 
+configurar o retorno e as acoes de acordo com a necessidade do teste.
+As principais funcoes do Mockito sao:
+> Mocks: cria uma instancia de uma classe fake.
+> Spy: cria uma instancia da classe que pode-se invocar ou chamar os metodos reais.
+> Inject Mocks: cria uma instancia e injeta as dependencias necessarias que estao anotadas com arroba mock.
+> Verify: verifica a quantidade de vezes e quais parametros utilizados para acessar um determinado metodo.
+> When: apos o mock ser criado pode-se configurar as acoes na chamada e qual o retorno que a vai receber.
+> Matchers: verifica os argumentos como n object, n string e etc.
+
