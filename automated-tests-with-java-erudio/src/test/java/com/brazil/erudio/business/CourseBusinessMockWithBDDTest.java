@@ -4,6 +4,7 @@ import com.brazil.erudio.service.CourseService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
 
 import java.util.List;
 
@@ -76,14 +77,43 @@ class CourseBusinessMockWithBDDTest {
         // Given / Arrange
         given(mockService.retrieveCourses("Edward")).willReturn(courses);
 
+        String agileCourse = "Agile Desmistificado com Scrum, XP, Kanban e Trello";
+        String architectureCourse = "Arquitetura de Microsservicos do 0 com ASP.NET, .NET 6 e C#";
+        String restSpringCourse = "REST API's RESTFul do 0 a AWS com Spring Boot 3 Java e Docker";
+
         // When / Act
         business.deleteCoursesNotRelatedToSpring("Edward");
 
         // Then / Assert
-        then(mockService).should().deleteCourse("Agile Desmistificado com Scrum, XP, Kanban e Trello");
-        then(mockService).should().deleteCourse("Arquitetura de Microsservicos do 0 com ASP.NET, .NET 6 e C#");
-        then(mockService).should(never())
-                .deleteCourse("REST API's RESTFul do 0 a AWS com Spring Boot 3 Java e Docker");
+        then(mockService).should().deleteCourse(agileCourse);
+        then(mockService).should().deleteCourse(architectureCourse);
+        then(mockService).should(never()).deleteCourse(restSpringCourse);
+    }
+
+    // test[System Under Test]_[Condition or State Change]_[Expected Result]
+    @DisplayName("Delete Courses not Related to Spring Capturing Arguments should call Method")
+    @Test
+    void testDeleteCoursesNotRelatedToSpring_CapturingArguments_Should_CallMethod_deleteCourse() {
+        // Given / Arrange
+//        courses = asList(
+//                "Agile Desmistificado com Scrum, XP, Kanban e Trello",
+//                "REST API's RESTFul do 0 a AWS com Spring Boot 3 Java e Docker"
+//        );
+
+        given(mockService.retrieveCourses("Edward")).willReturn(courses);
+
+        // captura de argumento
+        ArgumentCaptor<String> argumentCaptor = ArgumentCaptor.forClass(String.class);
+
+//        String agileCourse = "Agile Desmistificado com Scrum, XP, Kanban e Trello";
+
+        // When / Act
+        business.deleteCoursesNotRelatedToSpring("Edward");
+
+        // Then / Assert
+        then(mockService).should(times(7)).deleteCourse(argumentCaptor.capture());
+//        assertThat(argumentCaptor.getValue(), is(agileCourse));
+        assertThat(argumentCaptor.getAllValues().size(), is(7));
     }
 
 }
