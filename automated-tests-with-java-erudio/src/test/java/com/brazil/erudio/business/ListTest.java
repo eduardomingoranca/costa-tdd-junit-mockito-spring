@@ -4,13 +4,12 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class ListTest {
+class ListTest {
 
     @Test
     void testMockingList_When_SizeIsCalled_ShouldReturn10() {
@@ -56,6 +55,21 @@ public class ListTest {
 
         // When / Act & Then / Assert
         assertEquals("Erudio", list.get(anyInt()));
+    }
+
+    @Test
+    void testMockingList_When_ThrowsAnException() {
+        // Given / Arrange
+        List<Object> list = mock(List.class);
+
+        when(list.get(anyInt())).thenThrow(new RuntimeException("Foo Bar!!"));
+
+        // When / Act & Then / Assert
+        assertThrows(RuntimeException.class,
+                () -> {
+                    // When / Act
+                    list.get(anyInt());
+                }, "Should have throw an RuntimeException");
     }
 
 }
