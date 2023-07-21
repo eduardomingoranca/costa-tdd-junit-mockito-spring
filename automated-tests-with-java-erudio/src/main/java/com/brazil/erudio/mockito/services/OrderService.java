@@ -1,4 +1,4 @@
-package com.brazil.erudio.mockito;
+package com.brazil.erudio.mockito.services;
 
 import static java.time.LocalDateTime.now;
 import static java.util.UUID.randomUUID;
