@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
@@ -21,4 +23,10 @@ public class PersonController {
     public Person findById(@PathVariable(value = "id") String id) {
         return service.findById(id);
     }
+
+    @RequestMapping(method = GET, produces = APPLICATION_JSON_VALUE)
+    public List<Person> findAll() {
+        return service.findAll();
+    }
+
 }
