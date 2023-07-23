@@ -1,0 +1,14 @@
+@DataJpaTest annotation
+
+
+> O Spring Boot fornece a anotacao @DataJpaTest para testar os componentes da 
+    camada de persistencia, que configurarao automaticamente um banco de dados
+    embarcado em memoria para fins de teste;
+> A anotacao @DataJpaTest nao carrega outros beans do Spring (@Components,
+   @Controller, @Service e beans anotados) no ApplicationContext;
+> Por padrao, ele procura por classes @Entity e configura os repositorios do 
+   Spring Data JPA anotados com a anotacao @Repository;
+> Por padrao, os testes anotados com @DataJpaTest sao transacionais e sao
+   revertidos ao final de cada teste;
+> Para testar repositorios do Spring Data JPA ou qualquer outro componente
+   relacionado ao JPA, o Spring Boot fornece a anotacao @DataJpaTest.
