@@ -21,7 +21,7 @@ public class PersonController {
     private PersonService service;
 
     @RequestMapping(value = "/{id}", method = GET, produces = APPLICATION_JSON_VALUE)
-    public Person findById(@PathVariable(value = "id") String id) {
+    public Person findById(@PathVariable(value = "id") Long id) {
         return service.findById(id);
     }
 

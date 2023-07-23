@@ -1,6 +1,7 @@
 package com.brazil.erudio.exceptions.handlers;
 
 import com.brazil.erudio.exceptions.ExceptionResponse;
+import com.brazil.erudio.exceptions.ResourceNotFoundException;
 import com.brazil.erudio.exceptions.UnsupportedMathOperationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -11,8 +12,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import java.util.Date;
 
-import static org.springframework.http.HttpStatus.BAD_REQUEST;
-import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
+import static org.springframework.http.HttpStatus.*;
 
 // @ControllerAdvice => concentra os tratamentos de erros pelos controllers
 @ControllerAdvice
@@ -39,6 +39,17 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
                 request.getDescription(false));
 
         return new ResponseEntity<>(exceptionResponse, BAD_REQUEST);
+    }
+
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public final ResponseEntity<ExceptionResponse> handleNotFoundExceptions(Exception ex, WebRequest request) {
+        // retorna a exception customizada
+        ExceptionResponse exceptionResponse = new ExceptionResponse(
+                new Date(),
+                ex.getMessage(),
+                request.getDescription(false));
+
+        return new ResponseEntity<>(exceptionResponse, NOT_FOUND);
     }
 
 }
