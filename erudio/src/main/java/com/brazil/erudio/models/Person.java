@@ -1,14 +1,30 @@
 package com.brazil.erudio.models;
 
+import jakarta.persistence.*;
+
 import java.io.Serializable;
 import java.util.Objects;
 
-public class Person implements Serializable {
+import static jakarta.persistence.GenerationType.IDENTITY;
+import static java.util.Objects.hash;
 
+@Entity
+@Table(name = "person")
+public class Person implements Serializable {
+    @Id
+    @GeneratedValue(strategy = IDENTITY)
     private Long id;
+
+    @Column(name = "first_name", nullable = false, length = 80)
     private String firstName;
+
+    @Column(name = "last_name", nullable = false, length = 80)
     private String lastName;
+
+    @Column(nullable = false, length = 100)
     private String address;
+
+    @Column(nullable = false, length = 6)
     private String gender;
 
     public Person() {
@@ -67,7 +83,7 @@ public class Person implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName, address, gender);
+        return hash(id, firstName, lastName, address, gender);
     }
 
 }
