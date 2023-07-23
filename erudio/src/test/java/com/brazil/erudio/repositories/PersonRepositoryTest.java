@@ -6,8 +6,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
 class PersonRepositoryTest {
@@ -19,14 +20,37 @@ class PersonRepositoryTest {
     @Test
     void testGivenPersonObject_WhenSave_thenReturnSavedPerson() {
         // Given / Arrange
-        Person personZero = new Person("Colin", "Leech", "Mayfair - London - UK",
+        Person person = new Person("Colin", "Leech", "Mayfair - London - UK",
                 "Male", "colin@erudio.com.br");
 
         // When / Act
-        Person savedPerson = repository.save(personZero);
+        Person savedPerson = repository.save(person);
 
         // Then / Assert
         assertNotNull(savedPerson);
         assertTrue(savedPerson.getId() > 0);
     }
+
+    // test[System Under Test]_[Condition or State Change]_[Expected Result]
+    @DisplayName("Given Person List When FindAll Then Return Person List")
+    @Test
+    void testGivenPersonList_WhenFindAll_ThenReturnPersonList() {
+        // Given / Arrange
+        Person personZero = new Person("Noah", "Butterworth", "Nuneaton - Warwickshire - UK",
+                "Male", "noah@erudio.com.br");
+
+        Person personOne = new Person("Matthew", "Davenport", "Oxford - Oxfordshire - UK",
+                "Male", "matthew@erudio.com.br");
+
+        repository.save(personZero);
+        repository.save(personOne);
+
+        // When / Act
+        List<Person> personList = repository.findAll();
+
+        // Then / Assert
+        assertNotNull(personList);
+        assertEquals(2, personList.size());
+    }
+
 }
