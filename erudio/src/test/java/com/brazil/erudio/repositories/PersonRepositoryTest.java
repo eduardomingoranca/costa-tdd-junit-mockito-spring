@@ -22,7 +22,7 @@ class PersonRepositoryTest {
     void testGivenPersonObject_WhenSave_thenReturnSavedPerson() {
         // Given / Arrange
         Person person = new Person("Colin", "Leech", "Mayfair - London - UK",
-                "Male", "colin@erudio.com.br");
+                "Male", "colin@erudio.com");
 
         // When / Act
         Person savedPerson = repository.save(person);
@@ -38,10 +38,10 @@ class PersonRepositoryTest {
     void testGivenPersonList_WhenFindAll_ThenReturnPersonList() {
         // Given / Arrange
         Person personZero = new Person("Noah", "Butterworth", "Nuneaton - Warwickshire - UK",
-                "Male", "noah@erudio.com.br");
+                "Male", "noah@erudio.com");
 
         Person personOne = new Person("Matthew", "Davenport", "Oxford - Oxfordshire - UK",
-                "Male", "matthew@erudio.com.br");
+                "Male", "matthew@erudio.com");
 
         repository.save(personZero);
         repository.save(personOne);
@@ -60,7 +60,7 @@ class PersonRepositoryTest {
     void testGivenPersonObject_whenFindByID_thenReturnPersonObject() {
         // Given / Arrange
         Person person = new Person("Luke", "Austerfield", "Bakewell - Derbyshire - UK",
-                "Male", "luke@erudio.com.br");
+                "Male", "luke@erudio.com");
         repository.save(person);
 
         // When / Act
@@ -77,7 +77,7 @@ class PersonRepositoryTest {
     void testGivenPersonObject_whenFindByEmail_thenReturnPersonObject() {
         // Given / Arrange
         Person person = new Person("Benjamin", "Leftwich", "Carlton - Selby - UK",
-                "Male", "benjamin@erudio.com.br");
+                "Male", "benjamin@erudio.com");
         repository.save(person);
 
         // When / Act
@@ -86,6 +86,28 @@ class PersonRepositoryTest {
         // Then / Assert
         assertNotNull(savedPerson);
         assertEquals(person.getEmail(), savedPerson.orElseThrow().getEmail());
+    }
+
+    // test[System Under Test]_[Condition or State Change]_[Expected Result]
+    @DisplayName("Given Person Object when Update Person then Return Updated Person Object")
+    @Test
+    void testGivenPersonObject_whenUpdatePerson_thenReturnUpdatedPersonObject() {
+        // Given / Arrange
+        Person person = new Person("James", "Fenner", "Euston - Suffolk - UK",
+                "Male", "james@erudio.com");
+        repository.save(person);
+
+        // When / Act
+        Optional<Person> savedPerson = repository.findById(person.getId());
+        savedPerson.orElseThrow().setFirstName("Levi");
+        savedPerson.orElseThrow().setEmail("levi@erudio.com");
+
+        Person updatedPerson = repository.save(savedPerson.orElseThrow());
+
+        // Then / Assert
+        assertNotNull(updatedPerson);
+        assertEquals("Levi", updatedPerson.getFirstName());
+        assertEquals("levi@erudio.com", updatedPerson.getEmail());
     }
 
 }
