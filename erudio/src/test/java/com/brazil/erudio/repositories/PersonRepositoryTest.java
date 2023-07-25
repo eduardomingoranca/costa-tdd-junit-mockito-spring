@@ -154,5 +154,27 @@ class PersonRepositoryTest {
         assertEquals(lastName, savedPerson.getLastName());
     }
 
+    // test[System Under Test]_[Condition or State Change]_[Expected Result]
+
+    @DisplayName("Given First Name And Last Name when FindNativeSQL then Return Person Object")
+    @Test
+    void testGivenFirstNameAndLastName_whenFindNativeSQL_thenReturnPersonObject() {
+        // Given / Arrange
+        String firstName = "Stephen";
+        String lastName = "Danbury";
+
+        Person person = new Person(firstName, lastName, "Liverpool - Merseyside - UK",
+                "Male", "stephen@erudio.com");
+
+        repository.save(person);
+
+        // When / Act
+        Person savedPerson = repository.findNativeSQL(firstName, lastName);
+
+        // Then / Assert
+        assertNotNull(savedPerson);
+        assertEquals(firstName, savedPerson.getFirstName());
+        assertEquals(lastName, savedPerson.getLastName());
+    }
 
 }
