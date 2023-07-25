@@ -1,6 +1,7 @@
 package com.brazil.erudio.repositories;
 
 import com.brazil.erudio.models.Person;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,14 +17,19 @@ class PersonRepositoryTest {
     @Autowired
     private PersonRepository repository;
 
+    private Person person;
+
+    @BeforeEach
+    public void setUp() {
+        // Given / Arrange
+        person = new Person("Colin", "Leech", "Mayfair - London - UK",
+                "Male", "colin@erudio.com");
+    }
+
     // test[System Under Test]_[Condition or State Change]_[Expected Result]
     @DisplayName("Given Person Object When Save then Return Saved Person")
     @Test
     void testGivenPersonObject_WhenSave_thenReturnSavedPerson() {
-        // Given / Arrange
-        Person person = new Person("Colin", "Leech", "Mayfair - London - UK",
-                "Male", "colin@erudio.com");
-
         // When / Act
         Person savedPerson = repository.save(person);
 
@@ -59,8 +65,6 @@ class PersonRepositoryTest {
     @Test
     void testGivenPersonObject_whenFindByID_thenReturnPersonObject() {
         // Given / Arrange
-        Person person = new Person("Luke", "Austerfield", "Bakewell - Derbyshire - UK",
-                "Male", "luke@erudio.com");
         repository.save(person);
 
         // When / Act
@@ -76,8 +80,6 @@ class PersonRepositoryTest {
     @Test
     void testGivenPersonObject_whenFindByEmail_thenReturnPersonObject() {
         // Given / Arrange
-        Person person = new Person("Benjamin", "Leftwich", "Carlton - Selby - UK",
-                "Male", "benjamin@erudio.com");
         repository.save(person);
 
         // When / Act
@@ -93,8 +95,6 @@ class PersonRepositoryTest {
     @Test
     void testGivenPersonObject_whenUpdatePerson_thenReturnUpdatedPersonObject() {
         // Given / Arrange
-        Person person = new Person("James", "Fenner", "Euston - Suffolk - UK",
-                "Male", "james@erudio.com");
         repository.save(person);
 
         // When / Act
@@ -115,11 +115,8 @@ class PersonRepositoryTest {
     @Test
     void testGivenFirstNameAndLastName_whenFindJPQL_thenReturnPersonObject() {
         // Given / Arrange
-        String firstName = "Paul";
-        String lastName = "Mountfield";
-
-        Person person = new Person(firstName, lastName, "Trafford - Manchester - UK",
-                "Male", "paul@erudio.com");
+        String firstName = "Colin";
+        String lastName = "Leech";
 
         repository.save(person);
 
@@ -137,11 +134,8 @@ class PersonRepositoryTest {
     @Test
     void testGivenFirstNameAndLastName_whenFindJPQLNamedParameters_thenReturnPersonObject() {
         // Given / Arrange
-        String firstName = "Timothy";
-        String lastName = "Worth";
-
-        Person person = new Person(firstName, lastName, "Liverpool - Merseyside - UK",
-                "Male", "timothy@erudio.com");
+        String firstName = "Colin";
+        String lastName = "Leech";
 
         repository.save(person);
 
@@ -160,11 +154,8 @@ class PersonRepositoryTest {
     @Test
     void testGivenFirstNameAndLastName_whenFindNativeSQL_thenReturnPersonObject() {
         // Given / Arrange
-        String firstName = "Stephen";
-        String lastName = "Danbury";
-
-        Person person = new Person(firstName, lastName, "Liverpool - Merseyside - UK",
-                "Male", "stephen@erudio.com");
+        String firstName = "Colin";
+        String lastName = "Leech";
 
         repository.save(person);
 
@@ -181,11 +172,8 @@ class PersonRepositoryTest {
     @Test
     void testGivenFirstNameAndLastName_whenFindNativeSQLWithNamedParameters_thenReturnPersonObject() {
         // Given / Arrange
-        String firstName = "Nicholas";
-        String lastName = "Cowper";
-
-        Person person = new Person(firstName, lastName, "West Bromwich - West Midlands - UK",
-                "Male", "nicholas@erudio.com");
+        String firstName = "Colin";
+        String lastName = "Leech";
 
         repository.save(person);
 
