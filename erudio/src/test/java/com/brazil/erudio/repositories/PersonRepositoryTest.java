@@ -110,6 +110,7 @@ class PersonRepositoryTest {
         assertEquals("levi@erudio.com", updatedPerson.getEmail());
     }
 
+    // test[System Under Test]_[Condition or State Change]_[Expected Result]
     @DisplayName("Given First Name And Last Name when FindJPQL then Return Person Object")
     @Test
     void testGivenFirstNameAndLastName_whenFindJPQL_thenReturnPersonObject() {
@@ -130,5 +131,28 @@ class PersonRepositoryTest {
         assertEquals(firstName, savedPerson.getFirstName());
         assertEquals(lastName, savedPerson.getLastName());
     }
+
+    // test[System Under Test]_[Condition or State Change]_[Expected Result]
+    @DisplayName("Given First Name And Last Name when Find JPQL Named Parameters then Return Person Object")
+    @Test
+    void testGivenFirstNameAndLastName_whenFindJPQLNamedParameters_thenReturnPersonObject() {
+        // Given / Arrange
+        String firstName = "Timothy";
+        String lastName = "Worth";
+
+        Person person = new Person(firstName, lastName, "Liverpool - Merseyside - UK",
+                "Male", "timothy@erudio.com");
+
+        repository.save(person);
+
+        // When / Act
+        Person savedPerson = repository.findJQPLNameParameters(firstName, lastName);
+
+        // Then / Assert
+        assertNotNull(savedPerson);
+        assertEquals(firstName, savedPerson.getFirstName());
+        assertEquals(lastName, savedPerson.getLastName());
+    }
+
 
 }
