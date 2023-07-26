@@ -168,6 +168,7 @@ class PersonRepositoryTest {
         assertEquals(lastName, savedPerson.getLastName());
     }
 
+    // test[System Under Test]_[Condition or State Change]_[Expected Result]
     @DisplayName("Given First Name And Last Name when FindNativeSQLWithNamedParameters then Return Person Object")
     @Test
     void testGivenFirstNameAndLastName_whenFindNativeSQLWithNamedParameters_thenReturnPersonObject() {
@@ -185,5 +186,7 @@ class PersonRepositoryTest {
         assertEquals(firstName, savedPerson.getFirstName());
         assertEquals(lastName, savedPerson.getLastName());
     }
+
+
 
 }

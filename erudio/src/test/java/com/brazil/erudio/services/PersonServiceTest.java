@@ -1,5 +1,6 @@
 package com.brazil.erudio.services;
 
+import com.brazil.erudio.exceptions.ResourceNotFoundException;
 import com.brazil.erudio.models.Person;
 import com.brazil.erudio.repositories.PersonRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,10 +12,13 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static java.util.Optional.empty;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static java.util.Optional.of;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
 class PersonServiceTest {
@@ -47,5 +51,19 @@ class PersonServiceTest {
         // Then / Assert
         assertNotNull(savedPerson);
         assertEquals("Noah", savedPerson.getFirstName());
+    }
+
+    // test[System Under Test]_[Condition or State Change]_[Expected Result]
+    @DisplayName("Given Existing Email When Save Person then Throws Exception")
+    @Test
+    void testGivenExistingEmail_WhenSavePerson_thenThrowsException() {
+        // Given / Arrange
+        given(repository.findByEmail(anyString())).willReturn(of(person));
+
+        // When / Act
+        assertThrows(ResourceNotFoundException.class, () -> service.create(person));
+
+        // Then / Assert
+        verify(repository, never()).save(any(Person.class));
     }
 }
