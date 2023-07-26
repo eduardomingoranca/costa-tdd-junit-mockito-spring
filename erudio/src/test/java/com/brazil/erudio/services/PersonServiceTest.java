@@ -117,4 +117,26 @@ class PersonServiceTest {
         assertEquals("Noah", savedPerson.getFirstName());
     }
 
+    // test[System Under Test]_[Condition or State Change]_[Expected Result]
+    @DisplayName("Given Person Object When Update Person then Return Updated Person Object")
+    @Test
+    void testGivenPersonObject_WhenUpdatePerson_thenReturnUpdatedPersonObject() {
+        // Given / Arrange
+        person.setId(1L);
+        given(repository.findById(anyLong())).willReturn(of(person));
+
+        person.setFirstName("Colin");
+        person.setEmail("colin@erudio.com");
+
+        given(repository.save(person)).willReturn(person);
+
+        // When / Act
+        Person updatedPerson = service.update(person);
+
+        // Then / Assert
+        assertNotNull(updatedPerson);
+        assertEquals("Colin", updatedPerson.getFirstName());
+        assertEquals("colin@erudio.com", updatedPerson.getEmail());
+    }
+
 }
