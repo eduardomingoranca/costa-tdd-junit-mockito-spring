@@ -13,6 +13,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 
+import static java.util.Collections.emptyList;
 import static java.util.Optional.empty;
 import static java.util.Optional.of;
 import static org.junit.jupiter.api.Assertions.*;
@@ -85,6 +86,21 @@ class PersonServiceTest {
         // Then / Assert
         assertNotNull(peopleList);
         assertEquals(2, peopleList.size());
+    }
+
+    // test[System Under Test]_[Condition or State Change]_[Expected Result]
+    @DisplayName("Given Empty People List When FindAll People then Return Empty People List")
+    @Test
+    void testGivenEmptyPeopleList_WhenFindAllPeople_thenReturnEmptyPeopleList() {
+        // Given / Arrange
+        given(repository.findAll()).willReturn(emptyList());
+
+        // When / Act
+        List<Person> peopleList = service.findAll();
+
+        // Then / Assert
+        assertTrue(peopleList.isEmpty());
+        assertEquals(0, peopleList.size());
     }
 
 }
