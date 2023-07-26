@@ -1,0 +1,6 @@
+InjectMocks Annotation
+
+> Quando queremos injetar um objeto mockado em outro mockado,
+   podemos usar a annotation @InjectMocks. A annotation @InjectMocks cria um
+   mock da classe e injeta os mocks que estao marcados com as annotations 
+   @Mock nela.
