@@ -1,0 +1,19 @@
+WebMvcTest Annotation
+
+> O Spring Boot fornece a anotacao @WebMvcTest para testar controllers Spring MVC.
+   Alem disso, os testes baseados em @WebMvcTest sao mais rapidos, pois carregam
+   apenas o controller especificado e suas dependencias, sem carregar a aplicacao
+   inteira;
+> O Spring Boot instancia apenas a camada web em vez de todo o application context.
+   Em uma aplicacao com varios controllers, voce pode definir a instanciacao de apenas
+   um deles usando, por exemplo, @WebMvcTest(PersonController.class);
+
+@WebMvcTest  x @SpringBootTest
+
+> O Spring Boot fornece a anotacao @WebMvcTest para testar controllers do
+   Spring MVC. Essa anotacao cria um application context que contem todos os 
+   beans necessarios para testar um controlador web do Spring;
+> O Sprign Boot fornece a anotacao @SpringBootTest para testes de integracao.
+   Essa anotacao carrega um application context completo;
+> Teste de unidade - anotacao @WebMvcTest;
+> Teste de integracao - anotacao @SpringBootTest.

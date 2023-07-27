@@ -1,0 +1,24 @@
+JsonPath Library
+
+> Uma DSL Java para leitura de documentos JSON
+
+> As expressoes JsonPath sempre se referem a uma estrutura JSON da mesma
+   forma que as expressoes XPath sao usadas em combinacao com um documento
+   XML. O "objeto membro raiz" no JsonPath eh sempre referido com $, independentemente 
+   de ser um objeto ou um array.
+
+	Json
+{
+	"firstName": "Levi",
+	"lastName": "Carrington",
+	"email": "levi@erudio.com"
+}
+
+JsonPath Expressions
+
+$ - root member de uma estrutura JSON,
+seja um objeto ou um array.
+
+$.firstName = "Levi",
+$.lastName = "Carrington",
+$.email = "levi@erudio.com"
