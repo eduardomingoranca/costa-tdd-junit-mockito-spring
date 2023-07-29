@@ -12,6 +12,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
+import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
@@ -19,7 +20,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.hamcrest.Matchers.is;
 
 @WebMvcTest
 class PersonControllerTest {
@@ -42,6 +42,7 @@ class PersonControllerTest {
                 "moses@erudio.com");
     }
 
+    // test[System Under Test]_[Condition or State Change]_[Expected Result]
     @DisplayName("Given Person Object When Create Person then Return Saved Person")
     @Test
     void testGivenPersonObject_WhenCreatePerson_thenReturnSavedPerson() throws Exception {
@@ -56,7 +57,7 @@ class PersonControllerTest {
 
         // Then / Assert
         response.andDo(print())
-                .andExpect(status().isOk())
+                .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.firstName", is(person.getFirstName())))
                 .andExpect(jsonPath("$.lastName", is(person.getLastName())))
                 .andExpect(jsonPath("$.email", is(person.getEmail())));
