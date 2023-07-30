@@ -16,12 +16,12 @@ import org.springframework.test.web.servlet.ResultActions;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.hamcrest.Matchers.in;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -125,4 +125,29 @@ class PersonControllerTest {
         response.andExpect(status().isNotFound()).andDo(print());
     }
 
+    // test[System Under Test]_[Condition or State Change]_[Expected Result]
+    @DisplayName("Given Updated Person When Update then Return Updated Person Object")
+    @Test
+    void testGivenUpdatedPerson_WhenUpdate_thenReturnUpdatedPersonObject() throws Exception {
+        // Given / Arrange
+        long personId = 1L;
+        given(service.findById(personId)).willThrow(ResourceNotFoundException.class);
+        given(service.update(any(Person.class))).willAnswer((invocation) -> invocation.getArgument(0));
+
+        // When / Act
+        Person updatedPerson = new Person("Noah", "Worth",
+                "noah@erudio.com.br", "Nuneaton - Warwickshire - UK",
+                "Male");
+
+        ResultActions response = mockMvc.perform(put("/person")
+                .contentType(APPLICATION_JSON)
+                .content(mapper.writeValueAsString(updatedPerson)));
+
+        // Then / Assert
+        response.andExpect(status().isOk())
+                .andDo(print())
+                .andExpect(jsonPath("$.firstName", is(updatedPerson.getFirstName())))
+                .andExpect(jsonPath("$.lastName", is(updatedPerson.getLastName())))
+                .andExpect(jsonPath("$.email", is(updatedPerson.getEmail())));
+    }
 }
