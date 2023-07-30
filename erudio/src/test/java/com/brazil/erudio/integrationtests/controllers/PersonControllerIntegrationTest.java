@@ -103,24 +103,59 @@ class PersonControllerIntegrationTest extends AbstractIntegrationTest {
                             .body()
                                 .asString();
 
-        Person createdPerson = objectMapper.readValue(content, Person.class);
+        Person updatedPerson = objectMapper.readValue(content, Person.class);
 
-        person = createdPerson;
+        person = updatedPerson;
 
-        assertNotNull(createdPerson);
+        assertNotNull(updatedPerson);
 
-        assertNotNull(createdPerson.getId());
-        assertNotNull(createdPerson.getFirstName());
-        assertNotNull(createdPerson.getLastName());
-        assertNotNull(createdPerson.getAddress());
-        assertNotNull(createdPerson.getGender());
-        assertNotNull(createdPerson.getEmail());
+        assertNotNull(updatedPerson.getId());
+        assertNotNull(updatedPerson.getFirstName());
+        assertNotNull(updatedPerson.getLastName());
+        assertNotNull(updatedPerson.getAddress());
+        assertNotNull(updatedPerson.getGender());
+        assertNotNull(updatedPerson.getEmail());
 
-        assertTrue(createdPerson.getId() > 0);
-        assertEquals("Boaz", createdPerson.getFirstName());
-        assertEquals("Leech", createdPerson.getLastName());
-        assertEquals("Mayfair - London - UK", createdPerson.getAddress());
-        assertEquals("Male", createdPerson.getGender());
-        assertEquals("boaz@erudio.com", createdPerson.getEmail());
+        assertTrue(updatedPerson.getId() > 0);
+        assertEquals("Boaz", updatedPerson.getFirstName());
+        assertEquals("Leech", updatedPerson.getLastName());
+        assertEquals("Mayfair - London - UK", updatedPerson.getAddress());
+        assertEquals("Male", updatedPerson.getGender());
+        assertEquals("boaz@erudio.com", updatedPerson.getEmail());
     }
+
+    // test[System Under Test]_[Condition or State Change]_[Expected Result]
+    @DisplayName("integration Given Person Object when findById Should Return A Person Object")
+    @Test
+    @Order(3)
+    void integrationTestGivenPersonObject_when_findById_ShouldReturnAPersonObject() throws JsonProcessingException {
+        String content = given().spec(specification)
+                  .pathParam("id", person.getId())
+                .when()
+                    .get("{id}")
+                .then()
+                    .statusCode(200)
+                        .extract()
+                            .body()
+                                .asString();
+
+        Person foundPerson = objectMapper.readValue(content, Person.class);
+
+        assertNotNull(foundPerson);
+
+        assertNotNull(foundPerson.getId());
+        assertNotNull(foundPerson.getFirstName());
+        assertNotNull(foundPerson.getLastName());
+        assertNotNull(foundPerson.getAddress());
+        assertNotNull(foundPerson.getGender());
+        assertNotNull(foundPerson.getEmail());
+
+        assertTrue(foundPerson.getId() > 0);
+        assertEquals("Boaz", foundPerson.getFirstName());
+        assertEquals("Leech", foundPerson.getLastName());
+        assertEquals("Mayfair - London - UK", foundPerson.getAddress());
+        assertEquals("Male", foundPerson.getGender());
+        assertEquals("boaz@erudio.com", foundPerson.getEmail());
+    }
+
 }
