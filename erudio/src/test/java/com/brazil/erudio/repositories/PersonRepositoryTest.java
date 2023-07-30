@@ -1,19 +1,23 @@
 package com.brazil.erudio.repositories;
 
+import com.brazil.erudio.integrationtests.testcontainers.AbstractIntegrationTest;
 import com.brazil.erudio.models.Person;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace.NONE;
 
 @DataJpaTest
-class PersonRepositoryTest {
+@AutoConfigureTestDatabase(replace = NONE)
+class PersonRepositoryTest extends AbstractIntegrationTest {
     @Autowired
     private PersonRepository repository;
 
@@ -186,7 +190,5 @@ class PersonRepositoryTest {
         assertEquals(firstName, savedPerson.getFirstName());
         assertEquals(lastName, savedPerson.getLastName());
     }
-
-
 
 }
