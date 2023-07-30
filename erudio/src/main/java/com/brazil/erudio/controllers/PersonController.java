@@ -39,7 +39,11 @@ public class PersonController {
     }
 
     @PutMapping(produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
-    public Person update(@RequestBody Person person) {
-        return service.update(person);
+    public ResponseEntity<Person> update(@RequestBody Person person) {
+        try {
+            return ok(service.update(person));
+        } catch (Exception e) {
+            return notFound().build();
+        }
     }
 }

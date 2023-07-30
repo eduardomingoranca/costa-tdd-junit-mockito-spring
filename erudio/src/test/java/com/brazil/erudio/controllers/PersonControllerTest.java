@@ -3,6 +3,7 @@ package com.brazil.erudio.controllers;
 import com.brazil.erudio.exceptions.ResourceNotFoundException;
 import com.brazil.erudio.models.Person;
 import com.brazil.erudio.services.PersonService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -16,7 +17,6 @@ import org.springframework.test.web.servlet.ResultActions;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.hamcrest.Matchers.in;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
@@ -150,4 +150,28 @@ class PersonControllerTest {
                 .andExpect(jsonPath("$.lastName", is(updatedPerson.getLastName())))
                 .andExpect(jsonPath("$.email", is(updatedPerson.getEmail())));
     }
+
+    // test[System Under Test]_[Condition or State Change]_[Expected Result]
+    @DisplayName("Given Unexistent Person when Update then Return Not Found")
+    @Test
+    void testGivenUnexistentPerson_WhenUpdate_thenReturnNotFound() throws Exception {
+        // Given / Arrange
+        long personId = 1L;
+        given(service.findById(personId)).willThrow(ResourceNotFoundException.class);
+        given(service.update(any(Person.class))).willAnswer((invocation) -> invocation.getArgument(1));
+
+        // When / Act
+        Person updatedPerson = new Person("Noah", "Worth",
+                "noah@erudio.com.br", "Nuneaton - Warwickshire - UK",
+                "Male");
+
+        ResultActions response = mockMvc.perform(put("/person")
+                .contentType(APPLICATION_JSON)
+                .content(mapper.writeValueAsString(updatedPerson)));
+
+        // Then / Assert
+        response.andExpect(status().isNotFound())
+                .andDo(print());
+    }
+
 }
