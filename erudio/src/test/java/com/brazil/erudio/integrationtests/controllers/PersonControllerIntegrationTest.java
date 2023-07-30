@@ -11,11 +11,14 @@ import io.restassured.specification.RequestSpecification;
 import org.junit.jupiter.api.*;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.List;
+
 import static com.brazil.erudio.configs.TestConfigs.CONTENT_TYPE_JSON;
 import static com.brazil.erudio.configs.TestConfigs.SERVER_PORT;
 import static com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES;
 import static io.restassured.RestAssured.given;
 import static io.restassured.filter.log.LogDetail.ALL;
+import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.DEFINED_PORT;
@@ -158,4 +161,72 @@ class PersonControllerIntegrationTest extends AbstractIntegrationTest {
         assertEquals("boaz@erudio.com", foundPerson.getEmail());
     }
 
+    // test[System Under Test]_[Condition or State Change]_[Expected Result]
+    @DisplayName("integration given person object when find all should return a people list")
+    @Test
+    @Order(4)
+    void integrationTestGivenPersonObject_when_findAll_ShouldReturnAPeopleList() throws JsonProcessingException {
+        Person anotherPerson = new Person(
+                "Alice",
+                "Specter",
+                "Mayfair - London - UK",
+                "Female",
+                "alice@erudio.com");
+
+        given().spec(specification)
+                .contentType(CONTENT_TYPE_JSON)
+                    .body(anotherPerson)
+                .when()
+                    .post()
+                .then()
+                    .statusCode(201);
+
+        String content = given().spec(specification)
+                .when()
+                    .get()
+                .then()
+                    .statusCode(200)
+                .extract()
+                    .body()
+                        .asString();
+
+        Person[] peopleArray = objectMapper.readValue(content, Person[].class);
+        List<Person> people = asList(peopleArray);
+
+        Person foundPersonOne = people.get(0);
+
+        assertNotNull(foundPersonOne);
+
+        assertNotNull(foundPersonOne.getId());
+        assertNotNull(foundPersonOne.getFirstName());
+        assertNotNull(foundPersonOne.getLastName());
+        assertNotNull(foundPersonOne.getAddress());
+        assertNotNull(foundPersonOne.getGender());
+        assertNotNull(foundPersonOne.getEmail());
+
+        assertTrue(foundPersonOne.getId() > 0);
+        assertEquals("Boaz", foundPersonOne.getFirstName());
+        assertEquals("Leech", foundPersonOne.getLastName());
+        assertEquals("Mayfair - London - UK", foundPersonOne.getAddress());
+        assertEquals("Male", foundPersonOne.getGender());
+        assertEquals("boaz@erudio.com", foundPersonOne.getEmail());
+
+        Person foundPersonTwo = people.get(1);
+
+        assertNotNull(foundPersonTwo);
+
+        assertNotNull(foundPersonTwo.getId());
+        assertNotNull(foundPersonTwo.getFirstName());
+        assertNotNull(foundPersonTwo.getLastName());
+        assertNotNull(foundPersonTwo.getAddress());
+        assertNotNull(foundPersonTwo.getGender());
+        assertNotNull(foundPersonTwo.getEmail());
+
+        assertTrue(foundPersonTwo.getId() > 0);
+        assertEquals("Alice", foundPersonTwo.getFirstName());
+        assertEquals("Specter", foundPersonTwo.getLastName());
+        assertEquals("Mayfair - London - UK", foundPersonTwo.getAddress());
+        assertEquals("Female", foundPersonTwo.getGender());
+        assertEquals("alice@erudio.com", foundPersonTwo.getEmail());
+    }
 }
