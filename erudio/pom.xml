@@ -59,7 +59,7 @@
 
 		<dependency>
 			<groupId>io.rest-assured</groupId>
-			<artifactId>json-path</artifactId>
+			<artifactId>rest-assured</artifactId>
 			<scope>test</scope>
 		</dependency>
 

@@ -13,7 +13,7 @@ import java.util.stream.Stream;
 import static org.testcontainers.lifecycle.Startables.deepStart;
 
 @ContextConfiguration(initializers = AbstractIntegrationTest.Initializer.class)
-class AbstractIntegrationTest {
+public class AbstractIntegrationTest {
 
     static class Initializer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
         // define um container em runtime usando a docker image
