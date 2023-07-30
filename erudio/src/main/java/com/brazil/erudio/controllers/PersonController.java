@@ -10,7 +10,7 @@ import java.util.List;
 
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
-import static org.springframework.http.ResponseEntity.status;
+import static org.springframework.http.ResponseEntity.*;
 
 @RestController
 @RequestMapping("/person")
@@ -20,8 +20,12 @@ public class PersonController {
     private PersonService service;
 
     @GetMapping(value = "/{id}", produces = APPLICATION_JSON_VALUE)
-    public Person findById(@PathVariable(value = "id") Long id) {
-        return service.findById(id);
+    public ResponseEntity<Person> findById(@PathVariable(value = "id") Long id) {
+        try {
+            return ok(service.findById(id));
+        } catch (Exception e) {
+            return notFound().build();
+        }
     }
 
     @GetMapping(produces = APPLICATION_JSON_VALUE)
