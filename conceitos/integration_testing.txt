@@ -1,0 +1,29 @@
+Testes de Integracao em uma Aplicacao Spring Boot
+
+> Como o nome sugere, os testes de integracao tem foco na integracao de
+   diferentes camadas da aplicacao. Isso tambem significa que nao ha uso de 
+   mocks;
+> Basicamente, escrevemos testes de integracao para testar um features que 
+   podem envolver interacao com multiplos componentes.
+
+			@SpringBootTest
+> O Spring Boot fornece a anotacao @SpringBootTest para testes de integracao.
+   Essa anotacao cria um application context completo.
+> @SpringBootTest inicializara o application context completo, o que significa
+   que podemos usar a anotacao @Autowire para injetar qualquer bean detectado
+   pelo component scan em nosso teste.
+
+   Testes de integracao - @SpringBootTest
+
+> Ele inicializa um servidor embarcado, cria um web environment e possibilita
+   que os metodos @Test facam testes de integracao.
+> Por padrao, @SpringBootTest nao inicia um servidor. Precisa adicionar o 
+   atributo WebEnvironment para refinar ainda mais como nossos testes serao
+   executados. Existem varias opcoes:
+	> MOCK (Padrao): Carrega um WebServerApplicationContext e fornece um web environment mockado;
+	> RANDOM_PORT: Carrega um WebServerApplicationContext e fornece um web environment real. O
+	   servidor embarcado eh iniciado e exposto em uma porta aleatoria. Essa opcao deve ser usada para
+    	   testes de integracao;
+	> DEFINED_PORT: Carrega um WebServerApplicationContext e fornece um web environment real;
+	> NONE: Carrega um ApplicationContext usando o SpringApplication, mas nao fornece nenhum web
+	   environment.
